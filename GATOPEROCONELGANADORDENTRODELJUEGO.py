@@ -1,4 +1,5 @@
 lista = [["1","2","3"],["4","5","6"],["7","8","9"]]
+import random
 def player_vs_player():
     while True:
         if lista[0][0] == "X" and lista[0][1] == "X" and lista[0][2] == "X":
@@ -95,10 +96,26 @@ def posicion(coordenada):
         
 def player_vs_COM():
     while True:
-        for i in range (3):
-            print (lista[i])
+        while True:
+            for i in range(3):
+                print(lista[i])
+            coordenada = int(input("Elige tu posicion: "))
+            x, y = posicion(coordenada)  # Obtener las coordenadas correspondientes
+            if lista[x][y] != "X":  # Verificar si la casilla no está ocupada
+                lista[x][y] = "X"  # Rellenar con "X"
+                coordenada = random.randint(1, 9)  # Escoger una coordenada aleatoria del 1 al 9
+                x, y = posicion(coordenada)  # Obtener las coordenadas correspondientes
+                if lista[x][y] != "O":  # Verificar si la casilla no está ocupada
+                    lista[x][y] = "O"  # Rellenar con "O"
+            else:
+                 print ("Elige otra casilla")
+            
 
-        figura = input("")
+      
+
+        
+
+        
 
 def menu():
     while True:
@@ -119,16 +136,7 @@ def menu():
 menu()
 
 
-##elif lista [0][2] and lista [1][1] and lista [2][0] == "X" or "O":
-    #print ("¡¡Felicidades, ganaste!!")
-    #break
 
-
-##if lista [0][0] and lista [0][1] and lista [0][2] == "X":
-            
-
-## DEFINIR GANADORif lista [["1","2","3"],["4","5","6"],["7","8","9"]] == [["1","X","3"],["4","X","6"],["7","X","9"] 
-## HACER UN WHILE GANADOR = FALSE PARA SEGUIR EL JUEGO SINO RETURN TRUE
-##  if lista (0, 0), (0, 1), (0, 2) == "X"
-##  elif:
-    
+    #x,y = random.choice(lista)
+    #x,y = posicion (coordenada)
+    #lista[x][y] = ("O")
