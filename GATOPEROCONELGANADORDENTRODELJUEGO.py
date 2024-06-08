@@ -3,7 +3,6 @@ import random
 def ver_lista():
      for i in range(3):
                 print(lista[i])
-                
 
 def player_vs_player():
     while True:
@@ -41,11 +40,17 @@ def player_vs_player():
                 break
         else: 
             ver_lista()
-
+        print ("--TURNO PLAYER 1--")
         coordenada = int(input("Elige tu posicion: "))
         posicion(coordenada)
         x,y = posicion(coordenada)
         lista [x][y] = ("X")
+        ver_lista()
+        print ("--TURNO PLAYER 2--")
+        coordenada = int(input("Elige tu posicion: "))
+        posicion(coordenada)
+        x,y = posicion(coordenada)
+        lista [x][y] = ("O")
 
 def posicion(coordenada):
     if coordenada == 1:
@@ -85,11 +90,6 @@ def posicion(coordenada):
         y = 2
         return (x,y)
 
-#def player_vs_player():
-     #if ganador():
-        
-        
-        
 def player_vs_COM():
     while True:
         while True:
@@ -105,7 +105,6 @@ def player_vs_COM():
             else:
                  print ("Elige otra casilla")
         
-
 def menu():
     while True:
         print ("Bienvenido al juego GATO")
@@ -124,8 +123,6 @@ def menu():
 
 menu()
 
-
-
-    #x,y = random.choice(lista)
-    #x,y = posicion (coordenada)
-    #lista[x][y] = ("O")
+## Intentar sacar las combinaciones ganadoras y ponerlas en una funcion
+## 
+## 
