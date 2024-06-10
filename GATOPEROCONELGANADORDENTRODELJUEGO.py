@@ -1,7 +1,7 @@
 lista = [["1","2","3"],["4","5","6"],["7","8","9"]]
 import os
 import random
-def validate_game(simbolo, player):
+def validacion_ganador(simbolo, player):
     status = False
     if lista[0][0] == simbolo and lista[0][1] == simbolo and lista[0][2] == simbolo:
                 status = True
@@ -45,7 +45,7 @@ def player_vs_player():
         posicion(coordenada)
         x,y = posicion(coordenada)
         lista [x][y] = ("X")
-        if validate_game("X","Player 1"):
+        if validacion_ganador("X","Player 1"):
             break
         else: ver_lista()
         print ("--TURNO PLAYER 2--")
@@ -53,7 +53,7 @@ def player_vs_player():
         posicion(coordenada)
         x,y = posicion(coordenada)
         lista [x][y] = ("O")
-        if validate_game("O","Player 2"):
+        if validacion_ganador("O","Player 2"):
             break
         else : ver_lista()
 
@@ -102,14 +102,14 @@ def player_vs_COM():
             x, y = posicion(coordenada) 
             if lista[x][y] != "X" and lista [x][y] != "O":  
                 lista[x][y] = "X"  
-                if validate_game("X","Player 1"):
+                if validacion_ganador("X","Player 1"):
                     break
                 posiciones_disponibles = [coordenada for coordenada in range(1, 10) if lista[posicion(coordenada)[0]][posicion(coordenada)[1]] not in ["X","O"]]
                 coordenada = random.choice(posiciones_disponibles)
                 x, y = posicion(coordenada)  
                 if lista[x][y] != "O" and lista [x][y] != "X": 
                     lista[x][y] = "O"
-                    if validate_game("O","COM"):
+                    if validacion_ganador("O","COM"):
                         break  
             else:
                  print ("Elige otra casilla")
