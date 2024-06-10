@@ -1,56 +1,61 @@
 lista = [["1","2","3"],["4","5","6"],["7","8","9"]]
+import os
 import random
-def ver_lista():
-     for i in range(3):
-                print(lista[i])
+def validate_game(simbolo, player):
+    status = False
+    if lista[0][0] == simbolo and lista[0][1] == simbolo and lista[0][2] == simbolo:
+                status = True
+    elif lista[1][0] == simbolo and lista[1][1] == simbolo and lista[1][2] == simbolo:
+                status = True
+    elif lista[2][0] == simbolo and lista[2][1] == simbolo and lista[2][2] == simbolo:
+                status = True
+    elif lista[0][0] == simbolo and lista[1][0] == simbolo and lista[2][0] == simbolo:
+                status = True
+    elif lista[0][1] == simbolo and lista[1][1] == simbolo and lista[2][1] == simbolo:
+                status = True
+    elif lista[0][2] == simbolo and lista[1][2] == simbolo and lista[2][2] == simbolo:
+                status = True
+    elif lista[0][0] == simbolo and lista[1][1] == simbolo and lista[2][2] == simbolo:
+                status = True
+    elif lista[0][2] == simbolo and lista[1][1] == simbolo and lista[2][0] == simbolo:
+                status = True
+    if status == True:
+        ver_lista()
+        print ("Ganaste", player)
+        for i in range(3):
+            for j in range(3):
+                lista[i][j] = str(i * 3 + j + 1)
+        return True
+        
+        
+        
+    return status 
+def limpiar_consola():
+    os.system('cls' if os.name == 'nt' else 'clear')
+def ver_lista(): 
+    limpiar_consola()
+    for i in range(3):
+        print(lista[i])
 
 def player_vs_player():
     while True:
-        if lista[0][0] == "X" and lista[0][1] == "X" and lista[0][2] == "X":
-                print("¡¡Felicidades, ganaste!!")
-                ver_lista()
-                break
-        elif lista[1][0] == "X" and lista[1][1] == "X" and lista[1][2] == "X":
-                print("¡¡Felicidades, ganaste!!")
-                ver_lista()
-                break
-        elif lista[2][0] == "X" and lista[2][1] == "X" and lista[2][2] == "X":
-                print("¡¡Felicidades, ganaste!!")
-                ver_lista()
-                break
-        elif lista[0][0] == "X" and lista[1][0] == "X" and lista[2][0] == "X":
-                print("¡¡Felicidades, ganaste!!")
-                ver_lista()
-                break
-        elif lista[0][1] == "X" and lista[1][1] == "X" and lista[2][1] == "X":
-                print("¡¡Felicidades, ganaste!!")
-                ver_lista()
-                break
-        elif lista[0][2] == "X" and lista[1][2] == "X" and lista[2][2] == "X":
-                print("¡¡Felicidades, ganaste!!")
-                ver_lista()
-                break
-        elif lista[0][0] == "X" and lista[1][1] == "X" and lista[2][2] == "X":
-                print("¡¡Felicidades, ganaste!!")
-                ver_lista()
-                break
-        elif lista[0][2] == "X" and lista[1][1] == "X" and lista[2][0] == "X":
-                print("¡¡Felicidades, ganaste!!")
-                ver_lista()
-                break
-        else: 
-            ver_lista()
+        ver_lista()
         print ("--TURNO PLAYER 1--")
         coordenada = int(input("Elige tu posicion: "))
         posicion(coordenada)
         x,y = posicion(coordenada)
         lista [x][y] = ("X")
-        ver_lista()
+        if validate_game("X","Player 1"):
+            break
+        else: ver_lista()
         print ("--TURNO PLAYER 2--")
         coordenada = int(input("Elige tu posicion: "))
         posicion(coordenada)
         x,y = posicion(coordenada)
         lista [x][y] = ("O")
+        if validate_game("O","Player 2"):
+            break
+        else : ver_lista()
 
 def posicion(coordenada):
     if coordenada == 1:
@@ -91,17 +96,21 @@ def posicion(coordenada):
         return (x,y)
 
 def player_vs_COM():
-    while True:
         while True:
             ver_lista()
             coordenada = int(input("Elige tu posicion: "))
-            x, y = posicion(coordenada)  # Obtener las coordenadas correspondientes
-            if lista[x][y] != "X" and lista [x][y] != "O":  # Verificar si la casilla no está ocupada
-                lista[x][y] = "X"  # Rellenar con "X"
-                coordenada = random.randint(1, 9)  # Escoger una coordenada aleatoria del 1 al 9
-                x, y = posicion(coordenada)  # Obtener las coordenadas correspondientes
-                if lista[x][y] != "O" and lista [x][y] != "X":  # Verificar si la casilla no está ocupada
-                    lista[x][y] = "O"  # Rellenar con "O"
+            x, y = posicion(coordenada) 
+            if lista[x][y] != "X" and lista [x][y] != "O":  
+                lista[x][y] = "X"  
+                if validate_game("X","Player 1"):
+                    break
+                posiciones_disponibles = [coordenada for coordenada in range(1, 10) if lista[posicion(coordenada)[0]][posicion(coordenada)[1]] not in ["X","O"]]
+                coordenada = random.choice(posiciones_disponibles)
+                x, y = posicion(coordenada)  
+                if lista[x][y] != "O" and lista [x][y] != "X": 
+                    lista[x][y] = "O"
+                    if validate_game("O","COM"):
+                        break  
             else:
                  print ("Elige otra casilla")
         
@@ -123,6 +132,11 @@ def menu():
 
 menu()
 
+
 ## Intentar sacar las combinaciones ganadoras y ponerlas en una funcion
 ## 
 ## 
+
+## sacar las combinaciones ganadoras y ponerlas en una funcion
+## En player vs player no sobreponer las jugadas
+##  
