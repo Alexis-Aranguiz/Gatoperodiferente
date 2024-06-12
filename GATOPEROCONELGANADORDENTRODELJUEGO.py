@@ -38,14 +38,20 @@ def ver_lista():
         print(lista[i])
 
 def player_vs_player():
+    contador_rondas= 0
     while True:
         ver_lista()
         print ("--TURNO PLAYER 1--")
         coordenada = int(input("Elige tu posicion: "))
         posicion(coordenada)
         x,y = posicion(coordenada)
-        lista [x][y] = ("X")
+        lista [x][y] = ("X") 
+        contador_rondas += 1
+        if contador_rondas >= 9:
+            print ("---EMPATE---")
+            break
         if validacion_ganador("X","Player 1"):
+            print ("Jugador 2 has perdido :(")
             break
         else: ver_lista()
         print ("--TURNO PLAYER 2--")
@@ -53,7 +59,9 @@ def player_vs_player():
         posicion(coordenada)
         x,y = posicion(coordenada)
         lista [x][y] = ("O")
+        contador_rondas += 1
         if validacion_ganador("O","Player 2"):
+            print ("Jugador 1 has perdido :(")
             break
         else : ver_lista()
 
@@ -96,23 +104,29 @@ def posicion(coordenada):
         return (x,y)
 
 def player_vs_COM():
-        while True:
-            ver_lista()
-            coordenada = int(input("Elige tu posicion: "))
-            x, y = posicion(coordenada) 
-            if lista[x][y] != "X" and lista [x][y] != "O":  
-                lista[x][y] = "X"  
-                if validacion_ganador("X","Player 1"):
-                    break
-                posiciones_disponibles = [coordenada for coordenada in range(1, 10) if lista[posicion(coordenada)[0]][posicion(coordenada)[1]] not in ["X","O"]]
-                coordenada = random.choice(posiciones_disponibles)
-                x, y = posicion(coordenada)  
-                if lista[x][y] != "O" and lista [x][y] != "X": 
-                    lista[x][y] = "O"
-                    if validacion_ganador("O","COM"):
-                        break  
-            else:
-                 print ("Elige otra casilla")
+    contador_rondas = 0
+    while True:
+        ver_lista()
+        coordenada = int(input("Elige tu posicion: "))
+        x, y = posicion(coordenada) 
+        if lista[x][y] != "X" and lista [x][y] != "O":  
+            lista[x][y] = "X"
+            contador_rondas += 1
+            if contador_rondas >= 9:
+                print ("---EMPATE---")
+                break  
+            if validacion_ganador("X","Player 1"):
+                break
+            posiciones_disponibles = [coordenada for coordenada in range(1, 10) if lista[posicion(coordenada)[0]][posicion(coordenada)[1]] not in ["X","O"]]
+            coordenada = random.choice(posiciones_disponibles)
+            x, y = posicion(coordenada)  
+            if lista[x][y] != "O" and lista [x][y] != "X": 
+                lista[x][y] = "O"
+                contador_rondas += 1
+                if validacion_ganador("O","COM"):
+                    break  
+        else:
+            print ("Elige otra casilla")
         
 def menu():
     while True:
@@ -122,21 +136,19 @@ def menu():
         print ("2-. Versus (P1 VS P2)")
         print ("3-. Salir")
         respuesta = int(input("Elige una opcion (1-3): "))
-        if respuesta == 1: 
-            player_vs_COM()
-        elif respuesta == 2:
-            player_vs_player()
-        else:
-            respuesta == 3
-            break
+        if respuesta >= 1 and respuesta <=3:
+            if respuesta == 1: 
+                player_vs_COM()
+            elif respuesta == 2:
+                player_vs_player()
+            else:
+                respuesta == 3
+                break
+        else: print ("Opcion no valida.\nIntenta nuevamente")
 
 menu()
 
 
-## Intentar sacar las combinaciones ganadoras y ponerlas en una funcion
-## 
-## 
-
-## sacar las combinaciones ganadoras y ponerlas en una funcion
-## En player vs player no sobreponer las jugadas
-##  
+## NO SOBREPONER JUGADAS EN PVP
+## REINICIAR LA TABLA EN EL EMPATE
+ 
