@@ -27,8 +27,6 @@ def validacion_ganador(simbolo, player):
                 lista[i][j] = str(i * 3 + j + 1)
         return True
         
-        
-        
     return status 
 def limpiar_consola():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -43,20 +41,21 @@ def player_vs_player():
         ver_lista()
         print ("--TURNO PLAYER 1--")
         coordenada = int(input("Elige tu posicion: "))
-        posicion(coordenada)
         x,y = posicion(coordenada)
         lista [x][y] = ("X") 
         contador_rondas += 1
-        if contador_rondas >= 9:
-            print ("---EMPATE---")
-            break
         if validacion_ganador("X","Player 1"):
             print ("Jugador 2 has perdido :(")
+            break
+        if contador_rondas >= 9:
+            print ("---EMPATE---")
+            for i in range(3):
+                for j in range(3):
+                    lista[i][j] = str(i * 3 + j + 1)
             break
         else: ver_lista()
         print ("--TURNO PLAYER 2--")
         coordenada = int(input("Elige tu posicion: "))
-        posicion(coordenada)
         x,y = posicion(coordenada)
         lista [x][y] = ("O")
         contador_rondas += 1
@@ -112,11 +111,14 @@ def player_vs_COM():
         if lista[x][y] != "X" and lista [x][y] != "O":  
             lista[x][y] = "X"
             contador_rondas += 1
-            if contador_rondas >= 9:
-                print ("---EMPATE---")
-                break  
             if validacion_ganador("X","Player 1"):
                 break
+            if contador_rondas >= 9:
+                print ("---EMPATE---")
+                for i in range(3):
+                    for j in range(3):
+                        lista[i][j] = str(i * 3 + j + 1)
+                break  
             posiciones_disponibles = [coordenada for coordenada in range(1, 10) if lista[posicion(coordenada)[0]][posicion(coordenada)[1]] not in ["X","O"]]
             coordenada = random.choice(posiciones_disponibles)
             x, y = posicion(coordenada)  
@@ -147,8 +149,4 @@ def menu():
         else: print ("Opcion no valida.\nIntenta nuevamente")
 
 menu()
-
-
-## NO SOBREPONER JUGADAS EN PVP
-## REINICIAR LA TABLA EN EL EMPATE
  
