@@ -41,34 +41,35 @@ def player_vs_player():
         ver_lista()
         print ("--TURNO PLAYER 1--")
         while True:
-            coordenada = int(input("Elige tu posición: "))
-            x, y = posicion(coordenada)
-            if lista[x][y] != "X" and lista[x][y] != "O":
-                lista[x][y] = "X"
-                contador_rondas += 1
-                if validacion_ganador("X", "Player 1"):
-                    print("Jugador 2 has perdido:(")
-                    return
-                elif contador_rondas >= 9:
-                    print("---EMPATE---")
-                    return
-                else:
-                    break  
-            else: print("La casilla está ocupada, elige otra.")
-        ver_lista()
-        print ("--TURNO PLAYER 2--")
-        while True:
             coordenada = int(input("Elige tu posicion: "))
             x,y = posicion(coordenada)
             if lista[x][y] != "X" and lista [x][y] != "O":
-                lista [x][y] = ("O")
+                lista [x][y] = ("X") 
                 contador_rondas += 1
-                if validacion_ganador("O","Player 2"):
-                    print ("Jugador 1 has perdido :(")
-                    return
-                else: ver_lista()
-                break
-            else: print ("Casilla ocupada, elige otra.")
+                if validacion_ganador("X","Player 1"):
+                    print ("Jugador 2 has perdido :(")
+                    break
+                elif contador_rondas >= 9:
+                    print ("---EMPATE---")
+                    for i in range(3):
+                        for j in range(3):
+                            lista[i][j] = str(i * 3 + j + 1)
+                        break
+                else: break
+            else: print ("La casilla esta ocupada, elige otra.")
+            ver_lista()
+            print ("--TURNO PLAYER 2--")
+            while True:
+                coordenada = int(input("Elige tu posicion: "))
+                x,y = posicion(coordenada)
+                if lista[x][y] != "X" and lista [x][y] != "O":
+                    lista [x][y] = ("O")
+                    contador_rondas += 1
+                    if validacion_ganador("O","Player 2"):
+                        print ("Jugador 1 has perdido :(")
+                        break
+                    else : ver_lista()
+                else: print ("Casilla ocupada, elige otra.")
 
 def posicion(coordenada):
     if coordenada == 1:
