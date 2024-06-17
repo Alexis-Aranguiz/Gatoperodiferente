@@ -50,7 +50,11 @@ def player_vs_player():
                     print("Jugador 2 has perdido:(")
                     return
                 elif contador_rondas >= 9:
+                    ver_lista()
                     print("---EMPATE---")
+                    for i in range(3):
+                        for j in range(3):
+                            lista[i][j] = str(i * 3 + j + 1)
                     return
                 else:
                     break  
@@ -120,6 +124,7 @@ def player_vs_COM():
             if validacion_ganador("X","Player 1"):
                 break
             if contador_rondas >= 9:
+                ver_lista()
                 print ("---EMPATE---")
                 for i in range(3):
                     for j in range(3):
@@ -153,6 +158,6 @@ def menu():
                 respuesta == 3
                 break
         else: print ("Opcion no valida.\nIntenta nuevamente")
-
+        
 menu()
  
